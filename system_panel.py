@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer, QPoint
 from PyQt6.QtGui import QPainter, QColor, QBrush, QPen, QFont, QAction, QIcon
 
-class StarkPanel(QWidget):
+class SystemHUD(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -301,6 +301,6 @@ class StarkPanel(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    panel = StarkPanel()
+    panel = SystemHUD()
     panel.show()
     sys.exit(app.exec())
