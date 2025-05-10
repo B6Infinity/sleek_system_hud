@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 import psutil
 from PyQt6.QtWidgets import (
