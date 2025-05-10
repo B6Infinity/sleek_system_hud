@@ -5,6 +5,7 @@ by [B6Infinity](https://github.com/B6Infinity/)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Run on Startup](#run-on-startup)
 - [Contributing](#contributing)
 
 
@@ -45,6 +46,38 @@ Once the application is running, a frameless HUD panel will appear on your deskt
 - **Network Activity**: Upload and download speeds in KB/s or MB/s.
 
 You can drag the panel to reposition it or minimize it to the system tray. Right-click on the panel for additional options such as toggling "Always on Top" or exiting the application.
+
+## Run on Startup
+To run this Python script automatically on startup, you can create a `.desktop` file:
+
+1. Create a `.desktop` file in the `~/.config/autostart/` directory:
+    ```bash
+    mkdir -p ~/.config/autostart
+    nano ~/.config/autostart/hud.desktop
+    ```
+
+2. Add the following content to the `hud.desktop` file:
+    ```ini
+    [Desktop Entry]
+    Type=Application
+    Exec=python3 /path/to/system_panel.py # Replace this with where you have saved the system_panel.py file
+    Hidden=false
+    NoDisplay=false
+    X-GNOME-Autostart-enabled=true
+    Name=HUD
+    Comment=Start the HUD application on login
+    ```
+
+    Replace `/path/to/system_panel.py` with the full path to the `system_panel.py` file.
+
+3. Save and close the file.
+
+4. Ensure the script is executable:
+    ```bash
+    chmod +x /path/to/system_panel.py
+    ```
+
+The HUD application will now start automatically when you log in.
 
 ## Contributing
 We welcome contributions! To contribute:
