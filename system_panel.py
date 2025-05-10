@@ -227,6 +227,10 @@ class StarkPanel(QWidget):
         self.net_up_label.setTextFormat(Qt.TextFormat.RichText)
         self.net_down_label.setTextFormat(Qt.TextFormat.RichText)
 
+        # Make labels transparent to mouse events to allow dragging
+        self.net_up_label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+        self.net_down_label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
             self.old_pos = event.globalPosition().toPoint()
