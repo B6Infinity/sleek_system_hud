@@ -191,9 +191,10 @@ class SystemHUD(QWidget):
         self.last_bytes_sent = current.bytes_sent
         self.last_bytes_recv = current.bytes_recv
 
+
         # Format upload speed
-        up_str = f"{int(up):04d}"
-        down_str = f"{int(down):04d}"
+        up_str, unit = self.refineNetworkSpeed(up)
+
 
         grey_index = -1
         if int(up_str) > 999:
@@ -205,8 +206,12 @@ class SystemHUD(QWidget):
         elif int(up_str) >= 0:
             grey_index = -1
 
+        
+
         # Apply styles to leading zeros and significant digits
-        up_html = f"<span style='color: #001100;'>{up_str[:grey_index]}</span><span style='color: #00FF7F;'>{up_str[grey_index:]}</span> KB/s"
+        up_html = f"<span style='color: #001100;'>{up_str[:grey_index]}</span><span style='color: #00FF7F;'>{up_str[grey_index:]}</span> {unit}"
+
+        down_str, unit = self.refineNetworkSpeed(down)
 
         grey_index = -1
         if int(down_str) > 999:
@@ -219,7 +224,7 @@ class SystemHUD(QWidget):
             grey_index = -1
 
 
-        down_html = f"<span style='color: #001100;'>{down_str[:grey_index]}</span><span style='color: #00FF7F;'>{down_str[grey_index:]}</span> KB/s"
+        down_html = f"<span style='color: #001100;'>{down_str[:grey_index]}</span><span style='color: #00FF7F;'>{down_str[grey_index:]}</span> {unit}"
 
         self.net_up_label.setText(up_html)
         self.net_down_label.setText(down_html)
@@ -297,6 +302,19 @@ class SystemHUD(QWidget):
         # Override close event to minimize to tray instead of closing
         event.ignore()
         self.minimize_to_tray()
+
+    # HELPER FUNCTIONS----
+    def refineNetworkSpeed(self, speed_in_kbps : float) -> tuple[str, str]:
+        ''''''
+        strval = f"{int(speed_in_kbps):04d}"
+
+        if len(strval) <= 4:
+            return (strval, "KB/s")
+        
+        speed_in_kbps = speed_in_kbps / 1000
+        strval = f"{int(speed_in_kbps):04d}"
+        return (strval, "MB/s")
+
 
 
 if __name__ == "__main__":
